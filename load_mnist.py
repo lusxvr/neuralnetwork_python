@@ -1,16 +1,27 @@
-#Importing MNIST
-from keras.datasets import mnist
+#Libraries
+import pickle
+import gzip
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def load_data():
+    f = gzip.open('data/mnist.pkl.gz', 'rb')
+    training_data, validation_data, test_data = pickle.load(f, encoding="latin1")
+    f.close
+    return(training_data, validation_data, test_data)
 
 #Loading the Dataset
-(train_X, train_y), (test_X, test_y) = mnist.load_data()
+training_data, validation_data, test_data = load_data()
 
 #Plotting the Size of the vectors
-print('X_train: ' + str(train_X.shape))
-print('y_train: ' + str(train_y.shape))
-print('X_test: ' + str(test_X.shape))
-print('y_test: ' + str(test_y.shape))
+print('training_data: ' + str(training_data))
+print('validation_data: ' + str(validation_data))
+print('test_data: ' + str(test_data))
 
-print(type(train_X))
-print(type(train_y))
+image_show = 1
 
-print(train_X[0])
+print("Digit:")
+print(training_data[1][image_show])
+plt.matshow(training_data[0][image_show].reshape((28,28)))
+plt.show()
